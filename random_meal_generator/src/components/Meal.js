@@ -5,11 +5,21 @@ class Meal extends Component {
         super(props)
 
         this.state = {
-            loading: true
+            loading: true,
+            meal_ingredients: [],
         }
     }
 
     componentDidMount() {
+        fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+            .then(res => res.json())
+            .then(res => {
+                // console.log(res.meal[0])
+                this.get_meal(res.meals[0])
+            })
+    }
+
+    buttonClick() {
         fetch('https://www.themealdb.com/api/json/v1/1/random.php')
             .then(res => res.json())
             .then(res => {
@@ -40,16 +50,12 @@ class Meal extends Component {
 
         for (let i = 1; i <= 20; i++) {
             if (meal[`strIngredient${i}`]) {
-                meal_ingredients.push(meal[`strIngredient${i}`])
-            }
-            if (meal[`strMeasure${i}`]) {
-                meal_measurement.push(meal[`strMeasure${i}`])
+                meal_ingredients.push(`${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`)
             }
         }
 
         this.setState({
             meal_ingredients,
-            meal_measurement,
             meal_img,
             meal_video,
             meal_source,
@@ -59,12 +65,13 @@ class Meal extends Component {
             meal_name,
             loading: false
         })
+
+        console.log(meal)
     }
 
     render() {
         let {
             meal_ingredients,
-            meal_measurement,
             meal_img,
             meal_video,
             meal_source,
@@ -74,10 +81,54 @@ class Meal extends Component {
             meal_name,
         } = this.state
         return (
-            <div className="container">
-                bam meal
-                <h1>{meal_name}</h1>
-            </div>
+            <>
+                <div className="flex-cover">
+                    <div className="meal-name">
+                        <h1>{meal_name}</h1>
+                    </div>
+                </div>
+                <div className="flex-cover">
+                    <button className='btn meal-button btn-lg' onClick={() => this.buttonClick()}>Get New Meal</button>
+                </div>
+
+                <div className="flex-cover">
+                    <div className="grid-cover">
+                        <div className="meal-ingredients cover">
+                            <h2 className='heading'>Ingredients</h2>
+                            <br />
+                            <div >
+                                <ol className='ingredient-list'>
+                                    {meal_ingredients.map(ingredient => (
+                                        <li>{ingredient}</li>
+                                    ))}
+                                </ol>
+                            </div>
+
+                        </div>
+
+                        <div className="meal-media cover">
+                            <div>
+                                <h4>Category - {meal_category}</h4>
+                                <h4>Region - {meal_area}</h4>
+                                <br />
+                            </div>
+                            <div className="img-container">
+                                <img src={meal_img} alt="" className="image" />
+                            </div>
+                            <br />
+                            <div className="img-container">
+                                <video src={meal_video} width='100%' height='300' controls ></video>
+                            </div>
+                        </div>
+
+                        <div className="meal-instructions cover">
+                            <h2 className='heading'>Instructions</h2>
+                            <p>{meal_instructions}</p>
+                            <a href={meal_source}>{meal_source}</a>
+                        </div>
+                    </div>
+                </div>
+            </>
         )
     }
 }
