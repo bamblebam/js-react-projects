@@ -30,7 +30,6 @@ class Meal extends Component {
 
     get_meal(meal) {
         let meal_ingredients = []
-        let meal_measurement = []
         let meal_img = ''
         let meal_video = ''
         let meal_source = ''
@@ -91,41 +90,39 @@ class Meal extends Component {
                     <button className='btn meal-button btn-lg' onClick={() => this.buttonClick()}>Get New Meal</button>
                 </div>
 
-                <div className="flex-cover">
-                    <div className="grid-cover">
-                        <div className="meal-ingredients cover">
-                            <h2 className='heading'>Ingredients</h2>
+                <div className="grid-cover">
+                    <div className="meal-ingredients cover">
+                        <h2 className='heading'>Ingredients</h2>
+                        <br />
+                        <div >
+                            <ol className='ingredient-list'>
+                                {meal_ingredients.map(ingredient => (
+                                    <li>{ingredient}</li>
+                                ))}
+                            </ol>
+                        </div>
+
+                    </div>
+
+                    <div className="meal-media cover">
+                        <div>
+                            <h4>Category - {meal_category}</h4>
+                            <h4>Region - {meal_area}</h4>
                             <br />
-                            <div >
-                                <ol className='ingredient-list'>
-                                    {meal_ingredients.map(ingredient => (
-                                        <li>{ingredient}</li>
-                                    ))}
-                                </ol>
-                            </div>
-
                         </div>
-
-                        <div className="meal-media cover">
-                            <div>
-                                <h4>Category - {meal_category}</h4>
-                                <h4>Region - {meal_area}</h4>
-                                <br />
-                            </div>
-                            <div className="img-container">
-                                <img src={meal_img} alt="" className="image" />
-                            </div>
-                            <br />
-                            <div className="img-container">
-                                <video src={meal_video} width='100%' height='300' controls ></video>
-                            </div>
+                        <div className="img-container">
+                            <img src={meal_img} alt="" className="image" />
                         </div>
-
-                        <div className="meal-instructions cover">
-                            <h2 className='heading'>Instructions</h2>
-                            <p>{meal_instructions}</p>
-                            <a href={meal_source}>{meal_source}</a>
+                        <br />
+                        <div className="img-container">
+                            <video src={meal_video} width='100%' height='300' controls ></video>
                         </div>
+                    </div>
+
+                    <div className="meal-instructions cover">
+                        <h2 className='heading'>Instructions</h2>
+                        <p>{meal_instructions}</p>
+                        <a href={meal_source} className='meal-link'>{meal_source}</a>
                     </div>
                 </div>
             </>

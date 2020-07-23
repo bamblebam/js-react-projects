@@ -13,29 +13,22 @@ body{
 }
 
 .meal-name{
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin: 40px;
 }
 
 .grid-cover{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(19rem,1fr));
   grid-column-gap: 4em;
-  margin: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
 }
-
-.meal_instructions{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 
 .cover{
   border: 1em solid #f4a261;
   border-radius: 20px;
   padding: 1em;
-  max-width:24em;
+  margin: 20px;
 }
 
 .ingredient-list{
@@ -63,4 +56,8 @@ body{
 .meal-button:hover{
   background-color: #30b5a6;
   transform: scale(1.2);
+}
+
+.meal-link{
+  word-break: break-all;
 }
