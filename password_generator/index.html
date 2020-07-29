@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
 
     <title>Document</title>
 </head>
@@ -13,23 +13,26 @@
     <div class="password-form">
         <div class="checkboxes">
             <div class="box">
-                <input type="text" class="password-display">
+                <span class="password-display"></span>
             </div>
             <div class="uppercase box">
-                <h3>uppercase</h3>
+                <h3>Include Uppercase</h3>
                 <input type="checkbox" id='uppercase' checked>
             </div>
             <div class="lowercase box">
-                <h3>lowercase</h3>
+                <h3>Include Lowercase</h3>
                 <input type="checkbox" id='lowercase' checked>
             </div>
             <div class="symbols box">
-                <h3>symbols</h3>
+                <h3>Include Symbols</h3>
                 <input type="checkbox" id='symbols' checked>
             </div>
             <div class="numbers box">
-                <h3>numbers</h3>
+                <h3>Include Numbers</h3>
                 <input type="checkbox" id='numbers' checked>
+            </div>
+            <div class="box">
+                <a class="button">Generate Password</a>
             </div>
         </div>
     </div>
