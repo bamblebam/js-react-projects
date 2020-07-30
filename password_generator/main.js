@@ -1,4 +1,3 @@
-colors = ['#74ee15', '#000000']
 
 CreateGrid()
 setInterval(ChangeNumbers, 100)
@@ -7,7 +6,6 @@ function CreateGrid() {
     let size = 30
     let rows = Math.ceil(window.innerHeight / size)
     let columns = Math.ceil(window.innerWidth / size)
-    console.log(rows, columns)
     for (let i = 0; i < rows; i++) {
         const numRow = document.createElement('div')
         numRow.classList.add('num-row')
@@ -37,5 +35,65 @@ function ChangeNumbers() {
     nums.forEach(num => {
         num.innerHTML = `<span class='num-value'>${GetRandomNumber()}</span>`
     });
-    console.log('change')
 }
+
+const button = document.querySelector('.button')
+button.addEventListener("click", () => {
+    checkbox_list = check()
+    generate(checkbox_list)
+})
+
+function check() {
+    const checkboxes = document.querySelectorAll('input[type=checkbox')
+    checkbox_list = []
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            checkbox_list.push(checkbox.id)
+        }
+    })
+    return checkbox_list
+}
+
+function generate(checkbox_list) {
+    length = checkbox_list.length
+    full_size = 24
+    size = full_size / length
+    password = []
+    checkbox_list.forEach(id => {
+        if (id == 'uppercase') {
+            for (i = 0; i < size; i++) {
+                password.push(String.fromCharCode(Math.floor(Math.random() * 26) + 65))
+            }
+        }
+        if (id == 'lowercase') {
+            for (i = 0; i < size; i++) {
+                password.push(String.fromCharCode(Math.floor(Math.random() * 26) + 97))
+            }
+        }
+        if (id == 'numbers') {
+            for (i = 0; i < size; i++) {
+                password.push(String.fromCharCode(Math.floor(Math.random() * 10) + 48))
+            }
+        }
+        if (id == 'symbols') {
+            symbol_list = '!@#$%^&*(){}[]=<>/,.'
+            for (i = 0; i < size; i++) {
+                password.push(symbol_list[Math.floor(Math.random() * symbol_list.length)])
+            }
+        }
+    })
+    display = document.querySelector('.password-display')
+    password = password.sort(() => Math.random() - 0.5)
+    final_password = password.join('')
+    display.innerHTML = final_password
+}
+
+const clipboard = document.querySelector('.clipboard')
+clipboard.addEventListener('click', () => {
+    range = document.createRange()
+    range.selectNode(document.querySelector('.password-display'))
+    window.getSelection().removeAllRanges()
+    window.getSelection().addRange(range)
+    document.execCommand('copy')
+    window.getSelection().removeAllRanges()
+})
